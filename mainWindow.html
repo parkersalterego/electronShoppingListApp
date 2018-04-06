@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <title>Shopping List</title>
 </head>
 <body>
     <h1>Shopping List</h1>
+    <ul id="listUl">
+
+    </ul>
 </body>
+<script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+
+    const ul = document.getElementById('listUl');
+
+    // add item
+    ipcRenderer.on('item:add', function(e, item){
+        const li =document.createElement('li');
+        const itemText = document.createTextNode(item);
+        li.appendChild(itemText);
+        ul.appendChild(li);
+    });
+
+    // clear items
+    ipcRenderer.on('item:clear', function() {
+        ul.innerHTML = '';
+    });
+
+    // Remove item 
+    ul.addEventListener('dblclick', removeItem);
+
+    function removeItem(e) {
+        e.target.remove();
+    }
+
+</script>
 </html>
