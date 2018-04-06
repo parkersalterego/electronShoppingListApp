@@ -5,7 +5,11 @@ const path = require('path');
 // pulling in objects from electron
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
+// set ENV
+process.env.NODE_ENV = 'production';
+
 let mainWindow;
+let addWindow;
 
 // Listen for app to be ready
 app.on('ready', function() {
